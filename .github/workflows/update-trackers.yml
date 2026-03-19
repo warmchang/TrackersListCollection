@@ -1,4 +1,6 @@
 name: Update Trackers
+# 说明：之前是托管在服务器上自动化运行的，但当服务器出现问题导致中断了几天后，我决定交给 Github Actions 处理（顺便省了个服务器费用），不过因为不熟悉，所以目前该 workflow 是精简过的（相比之前的过滤更宽松），后续会逐渐更新使其接近原来的效果。
+# Note: Previously, this was hosted on a server and ran automatically, but after the server went down and caused a few days of downtime, I decided to switch to GitHub Actions (which also saved me some server costs). However, since I’m still getting used to it, the current workflow has been simplified (with less stringent filtering criteria than before). I’ll be updating it gradually to bring the results closer to the original version.
 
 on:
   # 定时执行。这里使用 UTC 时间。
@@ -194,7 +196,7 @@ jobs:
               fi
             done <<< "${trackers}"
 
-            echo "Host invalid count: ${invalid}" >&2
+            #echo "Host invalid count: ${invalid}" >&2
             printf '%s\n' "${keep}" | sed '/^\s*$/d' | sort -u
           }
 
@@ -256,7 +258,7 @@ jobs:
               fi
             done <<< "${trackers}"
 
-            echo "TCP invalid count: ${invalid}" >&2
+            #echo "TCP invalid count: ${invalid}" >&2
             printf '%s\n' "${keep}" | sed '/^\s*$/d' | sort -u
           }
 
@@ -296,12 +298,12 @@ jobs:
             local trackers
 
             if [[ "${mode}" == "ALL" ]]; then
-              echo "ALL:"
+              #echo "ALL:"
               urls="${TRACKERSLIST_ALL_URL}"
               out_bt="${FILE_ALL}"
               out_aria2="${FILE_ALL_ARIA2}"
             else
-              echo "BEST:"
+              #echo "BEST:"
               urls="${TRACKERSLIST_BEST_URL}"
               out_bt="${FILE_BEST}"
               out_aria2="${FILE_BEST_ARIA2}"
@@ -364,15 +366,15 @@ jobs:
           sed -i -E "s|^- \*\*无 HTTP 列表：\*\*\([0-9]+ 个\).*$|- **无 HTTP 列表：**(${NOHTTP_NUM} 个)  |" README-ZH.md
 
           echo "[$(TZ='Asia/Shanghai' date '+%Y/%m/%d %H:%M:%S')] ALL数量：${ALL_NUM} 个，BEST数量：${BEST_NUM} 个，HTTP(S)数量：${HTTP_NUM} 个，NoHTTP数量：${NOHTTP_NUM} 个。"
-          cat all.txt ; echo
-          cat best.txt ; echo
-          cat http.txt ; echo
-          cat nohttp.txt ; echo
-          cat all_aria2.txt ; echo
-          cat best_aria2.txt ; echo
-          cat http_aria2.txt ; echo
-          cat nohttp_aria2.txt ; echo
-          cat README.md ; echo
+          cat all.txt
+          cat best.txt
+          cat http.txt
+          cat nohttp.txt
+          cat all_aria2.txt
+          cat best_aria2.txt
+          cat http_aria2.txt
+          cat nohttp_aria2.txt
+          cat README.md
           cat README-ZH.md
 
 #      - name: Commit and push when changed
