@@ -91,7 +91,7 @@ jobs:
           tcping() {
             local host="$1"
             local port="$2"
-            python3 -c 'import socket, sys; socket.create_connection((sys.argv[1], int(sys.argv[2])), timeout=1.5).close()' "$host" "$port"
+            python3 -c 'import socket, sys; socket.create_connection((sys.argv[1], int(sys.argv[2])), timeout=1.5).close()' "$host" "$port" 2>/dev/null
           }
 
           # 规范化并过滤 Tracker：
@@ -194,7 +194,7 @@ jobs:
               fi
             done <<< "${trackers}"
 
-            echo "Host invalid count: ${invalid}"
+            echo "Host invalid count: ${invalid}" >&2
             printf '%s\n' "${keep}" | sed '/^\s*$/d' | sort -u
           }
 
@@ -256,7 +256,7 @@ jobs:
               fi
             done <<< "${trackers}"
 
-            echo "TCP invalid count: ${invalid}"
+            echo "TCP invalid count: ${invalid}" >&2
             printf '%s\n' "${keep}" | sed '/^\s*$/d' | sort -u
           }
 
@@ -363,15 +363,15 @@ jobs:
 
           echo "[$(TZ='Asia/Shanghai' date '+%Y/%m/%d %H:%M:%S')] ALL数量：${ALL_NUM} 个，BEST数量：${BEST_NUM} 个，HTTP(S)数量：${HTTP_NUM} 个，NoHTTP数量：${NOHTTP_NUM} 个。"
           cat all.txt
-          cat best.txt
-          cat http.txt
-          cat nohttp.txt
+          #cat best.txt
+          #cat http.txt
+          #cat nohttp.txt
           cat all_aria2.txt
-          cat best_aria2.txt
-          cat http_aria2.txt
-          cat nohttp_aria2.txt
+          #cat best_aria2.txt
+          #cat http_aria2.txt
+          #cat nohttp_aria2.txt
           cat README.md
-          cat README-ZH.md
+          #cat README-ZH.md
 
 #      - name: Commit and push when changed
         # 如有修改则提交推送
