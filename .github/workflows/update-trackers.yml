@@ -296,10 +296,12 @@ jobs:
             local trackers
 
             if [[ "${mode}" == "ALL" ]]; then
+              echo "ALL:"
               urls="${TRACKERSLIST_ALL_URL}"
               out_bt="${FILE_ALL}"
               out_aria2="${FILE_ALL_ARIA2}"
             else
+              echo "BEST:"
               urls="${TRACKERSLIST_BEST_URL}"
               out_bt="${FILE_BEST}"
               out_aria2="${FILE_BEST_ARIA2}"
@@ -362,16 +364,16 @@ jobs:
           sed -i -E "s|^- \*\*无 HTTP 列表：\*\*\([0-9]+ 个\).*$|- **无 HTTP 列表：**(${NOHTTP_NUM} 个)  |" README-ZH.md
 
           echo "[$(TZ='Asia/Shanghai' date '+%Y/%m/%d %H:%M:%S')] ALL数量：${ALL_NUM} 个，BEST数量：${BEST_NUM} 个，HTTP(S)数量：${HTTP_NUM} 个，NoHTTP数量：${NOHTTP_NUM} 个。"
-          cat all.txt
-          #cat best.txt
-          #cat http.txt
-          #cat nohttp.txt
-          cat all_aria2.txt
-          #cat best_aria2.txt
-          #cat http_aria2.txt
-          #cat nohttp_aria2.txt
-          cat README.md
-          #cat README-ZH.md
+          cat all.txt ; echo
+          cat best.txt ; echo
+          cat http.txt ; echo
+          cat nohttp.txt ; echo
+          cat all_aria2.txt ; echo
+          cat best_aria2.txt ; echo
+          cat http_aria2.txt ; echo
+          cat nohttp_aria2.txt ; echo
+          cat README.md ; echo
+          cat README-ZH.md
 
 #      - name: Commit and push when changed
         # 如有修改则提交推送
